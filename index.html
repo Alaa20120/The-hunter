@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>THE HUNTER</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Game Canvas -->
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- HUD - Top Bar -->
+  <div id="hud" class="hidden">
+    <div class="stat-item">
+      <div class="stat-label">LEVEL</div>
+      <div class="stat-value" id="levelNum">1</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">GOLD</div>
+      <div class="stat-value gold" id="goldNum">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">SCORE</div>
+      <div class="stat-value" id="scoreNum">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">SHOTS</div>
+      <div class="stat-value" id="shotsNum">8/8</div>
+    </div>
+  </div>
+
+  <!-- Start Screen -->
+  <div id="startScreen" class="screen">
+    <div class="title">THE HUNTER</div>
+    <div class="subtitle">Aim. Charge. Release.</div>
+    
+    <!-- Level Select -->
+    <div class="level-select">
+      <div class="section-title">SELECT LEVEL</div>
+      <div class="level-grid" id="levelGrid"></div>
+    </div>
+
+    <!-- Bow Selection -->
+    <div class="bow-select">
+      <div class="section-title">SELECT BOW</div>
+      <div class="bow-grid" id="bowGrid"></div>
+    </div>
+
+    <button class="btn-start" onclick="startGame()">START GAME</button>
+  </div>
+
+  <!-- Game Over Screen -->
+  <div id="gameOverScreen" class="screen hidden">
+    <div class="title">GAME OVER</div>
+    <div class="stats-box">
+      <div class="stat-line">
+        <span>SCORE</span>
+        <span id="finalScore">0</span>
+      </div>
+      <div class="stat-line">
+        <span>LEVEL</span>
+        <span id="finalLevel">1</span>
+      </div>
+      <div class="stat-line">
+        <span>GOLD EARNED</span>
+        <span id="goldEarned">0</span>
+      </div>
+    </div>
+    <button class="btn-start" onclick="restartGame()">TRY AGAIN</button>
+    <button class="btn-menu" onclick="backToMenu()">MAIN MENU</button>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
