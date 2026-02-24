@@ -1,87 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Hunter - القناص</title>
-    <style>
-        /* الألوان والتصميم العصري */
-        body { margin: 0; background: radial-gradient(circle, #1a1a1a, #000); overflow: hidden; touch-action: none; font-family: sans-serif; }
-        canvas { display: block; }
-        #ui { position: absolute; top: 20px; width: 100%; text-align: center; color: #00ffcc; font-size: 20px; pointer-events: none; text-shadow: 0 0 10px #00ffcc; }
-    </style>
-</head>
-<body>
-    <div id="ui">🏹 اسحب القوس للخلف لإطلاق السهم</div>
-    <canvas id="gameCanvas"></canvas>
-
-    <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let isDragging = false;
-        let pullDistance = 0;
-        let startY = 0;
-
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            const centerX = canvas.width / 2;
-            const weaponY = canvas.height - 100;
-
-            // رسم القوس العصري (Neon Bow)
-            ctx.beginPath();
-            ctx.strokeStyle = '#00ffcc';
-            ctx.lineWidth = 6;
-            ctx.lineCap = 'round';
-            ctx.moveTo(centerX - 70, weaponY);
-            // انحناء القوس عند الشد
-            ctx.quadraticCurveTo(centerX, weaponY + (pullDistance * 0.8), centerX + 70, weaponY);
-            ctx.stroke();
-
-            // رسم الوتر (String)
-            ctx.beginPath();
-            ctx.strokeStyle = '#ffffff';
-            ctx.lineWidth = 2;
-            ctx.moveTo(centerX - 70, weaponY);
-            ctx.lineTo(centerX, weaponY + pullDistance);
-            ctx.lineTo(centerX + 70, weaponY);
-            ctx.stroke();
-
-            // رسم السهم (Arrow)
-            ctx.beginPath();
-            ctx.strokeStyle = '#ff3366'; // لون السهم
-            ctx.lineWidth = 4;
-            ctx.moveTo(centerX, weaponY + pullDistance);
-            ctx.lineTo(centerX, weaponY - 60 + pullDistance);
-            ctx.stroke();
-
-            requestAnimationFrame(draw);
-        }
-
-        // التحكم عن طريق اللمس (للأيفون)
-        canvas.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startY = e.touches[0].clientY;
-        });
-
-        canvas.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            let currentY = e.touches[0].clientY;
-            pullDistance = Math.max(0, currentY - startY);
-            if (pullDistance > 150) pullDistance = 150; // أقصى حد للشد
-        });
-
-        canvas.addEventListener('touchend', () => {
-            isDragging = false;
-            if (pullDistance > 30) {
-                console.log("إطلاق!"); // هنا هنبرمج حركة السهم المرة الجاية
-            }
-            pullDistance = 0;
-        });
-
-        draw();
-    </script>
-</body>
-</html>
